@@ -1,64 +1,62 @@
-﻿# AVAILABILITY SLAS
-
-| SLA        | DOWNTIME/WEEK    | DOWNTIME/MONTH   | DOWNTIME/YEAR    |
+| SLA        | DOWNTIME / WEEK  | DOWNTIME / MONTH | DOWNTIME / YEAR  |
 | :--------: | :--------------: | :--------------: | :--------------: |
-| 90.000%    | 16.80 hours      | 3.00 days        | 36.50 days       |
-| 90.500%    | 15.96 hours      | 2.85 days        | 34.68 days       |
-| 90.900%    | 15.29 hours      | 2.73 days        | 33.22 days       |
-| 90.950%    | 15.20 hours      | 2.72 days        | 33.03 days       |
-| 90.990%    | 15.14 hours      | 2.70 days        | 32.89 days       |
-| 90.999%    | 15.12 hours      | 2.70 days        | 32.85 days       |
-| 91.000%    | 15.12 hours      | 2.70 days        | 32.85 days       |
-| 91.500%    | 14.28 hours      | 2.55 days        | 31.03 days       |
-| 91.900%    | 13.61 hours      | 2.43 days        | 29.57 days       |
-| 91.950%    | 13.52 hours      | 2.42 days        | 29.38 days       |
-| 91.990%    | 13.46 hours      | 2.40 days        | 29.24 days       |
-| 91.999%    | 13.44 hours      | 2.40 days        | 29.20 days       |
-| 92.000%    | 13.44 hours      | 2.40 days        | 29.20 days       |
-| 92.500%    | 12.60 hours      | 2.25 days        | 27.38 days       |
-| 92.900%    | 11.93 hours      | 2.13 days        | 25.92 days       |
-| 92.950%    | 11.84 hours      | 2.12 days        | 25.73 days       |
-| 92.990%    | 11.78 hours      | 2.10 days        | 25.59 days       |
-| 92.999%    | 11.76 hours      | 2.10 days        | 25.55 days       |
-| 93.000%    | 11.76 hours      | 2.10 days        | 25.55 days       |
-| 93.500%    | 10.92 hours      | 1.95 days        | 23.73 days       |
-| 93.900%    | 10.25 hours      | 1.83 days        | 22.27 days       |
-| 93.950%    | 10.16 hours      | 1.82 days        | 22.08 days       |
-| 93.990%    | 10.10 hours      | 1.80 days        | 21.94 days       |
-| 93.999%    | 10.08 hours      | 1.80 days        | 21.90 days       |
-| 94.000%    | 10.08 hours      | 1.80 days        | 21.90 days       |
-| 94.500%    | 9.24 hours       | 1.65 days        | 20.08 days       |
-| 94.900%    | 8.57 hours       | 1.53 days        | 18.62 days       |
-| 94.950%    | 8.48 hours       | 1.52 days        | 18.43 days       |
-| 94.990%    | 8.42 hours       | 1.50 days        | 18.29 days       |
-| 94.999%    | 8.40 hours       | 1.50 days        | 18.25 days       |
-| 95.000%    | 8.40 hours       | 1.50 days        | 18.25 days       |
-| 95.500%    | 7.56 hours       | 1.35 days        | 16.43 days       |
-| 95.900%    | 6.89 hours       | 1.23 days        | 14.97 days       |
-| 95.950%    | 6.80 hours       | 1.22 days        | 14.78 days       |
-| 95.990%    | 6.74 hours       | 1.20 days        | 14.64 days       |
-| 95.999%    | 6.72 hours       | 1.20 days        | 14.60 days       |
-| 96.000%    | 6.72 hours       | 1.20 days        | 14.60 days       |
-| 96.500%    | 5.88 hours       | 1.05 days        | 12.78 days       |
-| 96.900%    | 5.21 hours       | 22.32 hours      | 11.32 days       |
-| 96.950%    | 5.12 hours       | 21.96 hours      | 11.13 days       |
-| 96.990%    | 5.06 hours       | 21.67 hours      | 10.99 days       |
-| 96.999%    | 5.04 hours       | 21.61 hours      | 10.95 days       |
-| 97.000%    | 5.04 hours       | 21.60 hours      | 10.95 days       |
-| 97.500%    | 4.20 hours       | 18.00 hours      | 9.13 days        |
-| 97.900%    | 3.53 hours       | 15.12 hours      | 7.67 days        |
-| 97.950%    | 3.44 hours       | 14.76 hours      | 7.48 days        |
-| 97.990%    | 3.38 hours       | 14.47 hours      | 7.34 days        |
-| 97.999%    | 3.36 hours       | 14.41 hours      | 7.30 days        |
-| 98.000%    | 3.36 hours       | 14.40 hours      | 7.30 days        |
-| 98.500%    | 2.52 hours       | 10.80 hours      | 5.48 days        |
-| 98.900%    | 1.85 hours       | 7.92 hours       | 4.02 days        |
-| 98.950%    | 1.76 hours       | 7.56 hours       | 3.83 days        |
-| 98.990%    | 1.70 hours       | 7.27 hours       | 3.69 days        |
-| 98.999%    | 1.68 hours       | 7.21 hours       | 3.65 days        |
-| 99.000%    | 1.68 hours       | 7.20 hours       | 3.65 days        |
-| 99.500%    | 50.40 minutes    | 3.60 hours       | 1.83 days        |
-| 99.900%    | 10.08 minutes    | 43.20 minutes    | 8.76 hours       |
-| 99.950%    | 5.04 minutes     | 21.60 minutes    | 4.38 hours       |
-| 99.990%    | 1.01 minutes     | 4.32 minutes     | 52.56 minutes    |
-| 99.999%    | 6.05 seconds     | 25.92 seconds    | 5.26 minutes     |
+| 99.999 %   | 6.05 seconds     | 25.92 seconds    | 5.26 minutes     |
+| 99.990 %   | 1.01 minutes     | 4.32 minutes     | 52.56 minutes    |
+| 99.950 %   | 5.04 minutes     | 21.60 minutes    | 4.38 hours       |
+| 99.900 %   | 10.08 minutes    | 43.20 minutes    | 8.76 hours       |
+| 99.500 %   | 50.40 minutes    | 3.60 hours       | 1.83 days        |
+| 99.000 %   | 1.68 hours       | 7.20 hours       | 3.65 days        |
+| 98.999 %   | 1.68 hours       | 7.21 hours       | 3.65 days        |
+| 98.990 %   | 1.70 hours       | 7.27 hours       | 3.69 days        |
+| 98.950 %   | 1.76 hours       | 7.56 hours       | 3.83 days        |
+| 98.900 %   | 1.85 hours       | 7.92 hours       | 4.02 days        |
+| 98.500 %   | 2.52 hours       | 10.80 hours      | 5.48 days        |
+| 98.000 %   | 3.36 hours       | 14.40 hours      | 7.30 days        |
+| 97.999 %   | 3.36 hours       | 14.41 hours      | 7.30 days        |
+| 97.990 %   | 3.38 hours       | 14.47 hours      | 7.34 days        |
+| 97.950 %   | 3.44 hours       | 14.76 hours      | 7.48 days        |
+| 97.900 %   | 3.53 hours       | 15.12 hours      | 7.67 days        |
+| 97.500 %   | 4.20 hours       | 18.00 hours      | 9.13 days        |
+| 97.000 %   | 5.04 hours       | 21.60 hours      | 10.95 days       |
+| 96.999 %   | 5.04 hours       | 21.61 hours      | 10.95 days       |
+| 96.990 %   | 5.06 hours       | 21.67 hours      | 10.99 days       |
+| 96.950 %   | 5.12 hours       | 21.96 hours      | 11.13 days       |
+| 96.900 %   | 5.21 hours       | 22.32 hours      | 11.32 days       |
+| 96.500 %   | 5.88 hours       | 1.05 days        | 12.78 days       |
+| 96.000 %   | 6.72 hours       | 1.20 days        | 14.60 days       |
+| 95.999 %   | 6.72 hours       | 1.20 days        | 14.60 days       |
+| 95.990 %   | 6.74 hours       | 1.20 days        | 14.64 days       |
+| 95.950 %   | 6.80 hours       | 1.22 days        | 14.78 days       |
+| 95.900 %   | 6.89 hours       | 1.23 days        | 14.97 days       |
+| 95.500 %   | 7.56 hours       | 1.35 days        | 16.43 days       |
+| 95.000 %   | 8.40 hours       | 1.50 days        | 18.25 days       |
+| 94.999 %   | 8.40 hours       | 1.50 days        | 18.25 days       |
+| 94.990 %   | 8.42 hours       | 1.50 days        | 18.29 days       |
+| 94.950 %   | 8.48 hours       | 1.52 days        | 18.43 days       |
+| 94.900 %   | 8.57 hours       | 1.53 days        | 18.62 days       |
+| 94.500 %   | 9.24 hours       | 1.65 days        | 20.08 days       |
+| 94.000 %   | 10.08 hours      | 1.80 days        | 21.90 days       |
+| 93.999 %   | 10.08 hours      | 1.80 days        | 21.90 days       |
+| 93.990 %   | 10.10 hours      | 1.80 days        | 21.94 days       |
+| 93.950 %   | 10.16 hours      | 1.82 days        | 22.08 days       |
+| 93.900 %   | 10.25 hours      | 1.83 days        | 22.27 days       |
+| 93.500 %   | 10.92 hours      | 1.95 days        | 23.73 days       |
+| 93.000 %   | 11.76 hours      | 2.10 days        | 25.55 days       |
+| 92.999 %   | 11.76 hours      | 2.10 days        | 25.55 days       |
+| 92.990 %   | 11.78 hours      | 2.10 days        | 25.59 days       |
+| 92.950 %   | 11.84 hours      | 2.12 days        | 25.73 days       |
+| 92.900 %   | 11.93 hours      | 2.13 days        | 25.92 days       |
+| 92.500 %   | 12.60 hours      | 2.25 days        | 27.38 days       |
+| 92.000 %   | 13.44 hours      | 2.40 days        | 29.20 days       |
+| 91.999 %   | 13.44 hours      | 2.40 days        | 29.20 days       |
+| 91.990 %   | 13.46 hours      | 2.40 days        | 29.24 days       |
+| 91.950 %   | 13.52 hours      | 2.42 days        | 29.38 days       |
+| 91.900 %   | 13.61 hours      | 2.43 days        | 29.57 days       |
+| 91.500 %   | 14.28 hours      | 2.55 days        | 31.03 days       |
+| 91.000 %   | 15.12 hours      | 2.70 days        | 32.85 days       |
+| 90.999 %   | 15.12 hours      | 2.70 days        | 32.85 days       |
+| 90.990 %   | 15.14 hours      | 2.70 days        | 32.89 days       |
+| 90.950 %   | 15.20 hours      | 2.72 days        | 33.03 days       |
+| 90.900 %   | 15.29 hours      | 2.73 days        | 33.22 days       |
+| 90.500 %   | 15.96 hours      | 2.85 days        | 34.68 days       |
+| 90.000 %   | 16.80 hours      | 3.00 days        | 36.50 days       |
