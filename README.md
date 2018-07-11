@@ -1,2 +1,0 @@
-# sla
-Availability SLA Calculator
