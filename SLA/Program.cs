@@ -14,14 +14,20 @@ namespace SLA
         private const string Minutes = "minutes";
         private const string Hours = "hours";
         private const string Format = "0.00";
+
         private static readonly decimal StepStart = decimal.Parse(ConfigurationManager.AppSettings["StepStart"]);
         private static readonly decimal StepEnd = decimal.Parse(ConfigurationManager.AppSettings["StepEnd"]);
 
-        private static readonly int Padding = 16;
-        private static readonly int SecondsPerDay = 24 * 60 * 60;
-        private static readonly int SecondsPerWeek = SecondsPerDay * 7;
-        private static readonly int SecondsPerMonth = SecondsPerDay * 30;
-        private static readonly int SecondsPerYear = SecondsPerDay * 365;
+        private const int Padding = 16;
+        private const int Cent = 100;
+
+        private const int HoursPerDay = 24;
+        private const int MinutesPerHour = 60;
+        private const int SecondsPerMinute = 60;
+        private static readonly int SecondsPerDay = HoursPerDay * MinutesPerHour * SecondsPerMinute;
+        private static readonly int SecondsPerWeek = SecondsPerDay * 7; // Days per Week
+        private static readonly int SecondsPerMonth = SecondsPerDay * 30; // Days per Month
+        private static readonly int SecondsPerYear = SecondsPerDay * 365; // Dats per Year
 
         private static readonly decimal[] Increments = new decimal[] { 0.000M, 0.500M, 0.900M, 0.950M, 0.990M, 0.999M };
 
@@ -38,13 +44,15 @@ namespace SLA
 
             var divider = Center("-".PadRight(Padding, '-'));
             var output = new StringBuilder();
+            output.AppendLine("# AVAILABILITY SLAS");
+            output.AppendLine();
             output.AppendLine($"| {"SLA".PadRight(10)} | {"DOWNTIME / WEEK".PadRight(Padding)} | {"DOWNTIME / MONTH".PadRight(Padding)} | {"DOWNTIME / YEAR".PadRight(Padding)} |");
             output.AppendLine($"| {Center("-".PadRight(10, '-'))} | {divider} | {divider} | {divider} |");
             foreach (var step in steps.OrderByDescending(x => x))
             {
-                var downtimePerYear = (SecondsPerYear * ((100.000M - step) / 100) / SecondsPerDay);
-                var downtimePerMonth = (SecondsPerMonth * ((100.000M - step) / 100) / SecondsPerDay);
-                var downtimePerWeek = (SecondsPerWeek * ((100.000M - step) / 100) / SecondsPerDay);
+                var downtimePerYear = (SecondsPerYear * ((100.000M - step) / Cent) / SecondsPerDay);
+                var downtimePerMonth = (SecondsPerMonth * ((100.000M - step) / Cent) / SecondsPerDay);
+                var downtimePerWeek = (SecondsPerWeek * ((100.000M - step) / Cent) / SecondsPerDay);
                 output.AppendLine($"| {step}{" %".PadRight(4)} | {GetDowntime(downtimePerWeek).PadRight(Padding)} | {GetDowntime(downtimePerMonth).PadRight(Padding)} | {GetDowntime(downtimePerYear).PadRight(Padding)} |");
             }
 
@@ -59,13 +67,13 @@ namespace SLA
             var units = Days;
             if (Math.Truncate(downtime).Equals(0))
             {
-                downtime = downtime * 24;
+                downtime = downtime * HoursPerDay;
                 if (Math.Truncate(downtime).Equals(0))
                 {
-                    downtime = downtime * 60;
+                    downtime = downtime * MinutesPerHour;
                     if (Math.Truncate(downtime).Equals(0))
                     {
-                        downtime = downtime * 60;
+                        downtime = downtime * SecondsPerMinute;
                         units = Seconds;
                     }
                     else
