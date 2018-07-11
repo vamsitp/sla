@@ -1,3 +1,5 @@
+# AVAILABILITY SLAS
+
 | SLA        | DOWNTIME / WEEK  | DOWNTIME / MONTH | DOWNTIME / YEAR  |
 | :--------: | :--------------: | :--------------: | :--------------: |
 | 99.999 %   | 6.05 seconds     | 25.92 seconds    | 5.26 minutes     |
