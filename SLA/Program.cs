@@ -1,4 +1,4 @@
-﻿namespace SLA
+namespace SLA
 {
     using System;
     using System.Collections.Generic;
@@ -38,9 +38,9 @@
 
             var divider = Center("-".PadRight(Padding, '-'));
             var output = new StringBuilder();
-            output.AppendLine($"| {"SLA".PadRight(10)} | {"DOWNTIME/WEEK".PadRight(Padding)} | {"DOWNTIME/MONTH".PadRight(Padding)} | {"DOWNTIME/YEAR".PadRight(Padding)} |");
+            output.AppendLine($"| {"SLA".PadRight(10)} | {"DOWNTIME / WEEK".PadRight(Padding)} | {"DOWNTIME / MONTH".PadRight(Padding)} | {"DOWNTIME / YEAR".PadRight(Padding)} |");
             output.AppendLine($"| {Center("-".PadRight(10, '-'))} | {divider} | {divider} | {divider} |");
-            foreach (var step in steps.OrderBy(x => x))
+            foreach (var step in steps.OrderByDescending(x => x))
             {
                 var downtimePerYear = (SecondsPerYear * ((100.000M - step) / 100) / SecondsPerDay);
                 var downtimePerMonth = (SecondsPerMonth * ((100.000M - step) / 100) / SecondsPerDay);
