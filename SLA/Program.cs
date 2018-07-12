@@ -14,6 +14,7 @@ namespace SLA
         private const string Minutes = "mins";
         private const string Hours = "hrs";
         private const string Format = "{0,5:##.00}";
+        private const string Colon = ":";
 
         private static readonly decimal StepStart = decimal.Parse(ConfigurationManager.AppSettings["StepStart"]);
         private static readonly decimal StepEnd = decimal.Parse(ConfigurationManager.AppSettings["StepEnd"]);
@@ -21,13 +22,18 @@ namespace SLA
         private const int Padding = 16;
         private const int Cent = 100;
 
+        private const int DaysPerWeek = 7;
+        private const int DaysPerMonth = 30;
+        private const int DaysPerYear = 365;
+
         private const int HoursPerDay = 24;
         private const int MinutesPerHour = 60;
         private const int SecondsPerMinute = 60;
+
         private static readonly int SecondsPerDay = HoursPerDay * MinutesPerHour * SecondsPerMinute;
-        private static readonly int SecondsPerWeek = SecondsPerDay * 7; // Days per Week
-        private static readonly int SecondsPerMonth = SecondsPerDay * 30; // Days per Month
-        private static readonly int SecondsPerYear = SecondsPerDay * 365; // Dats per Year
+        private static readonly int SecondsPerWeek = SecondsPerDay * DaysPerWeek;
+        private static readonly int SecondsPerMonth = SecondsPerDay * DaysPerMonth;
+        private static readonly int SecondsPerYear = SecondsPerDay * DaysPerYear;
 
         private static readonly IEnumerable<decimal> Intervals = ConfigurationManager.AppSettings["Intervals"].Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(decimal.Parse);
 
@@ -44,7 +50,7 @@ namespace SLA
 
             var divider = Center("-".PadRight(Padding, '-'));
             var output = new StringBuilder();
-            output.AppendLine("# AVAILABILITY SLAS");
+            output.AppendLine("# [AVAILABILITY SLAS](https://docs.microsoft.com/en-us/azure/architecture/resiliency/index#slas)");
             output.AppendLine();
             output.AppendLine($"| {"SLA".PadRight(10)} | {"DOWNTIME / WEEK".PadRight(Padding)} | {"DOWNTIME / MONTH".PadRight(Padding)} | {"DOWNTIME / YEAR".PadRight(Padding)} |");
             output.AppendLine($"| {Center("-".PadRight(10, '-'))} | {divider} | {divider} | {divider} |");
@@ -93,7 +99,7 @@ namespace SLA
 
         private static string Center(string divider)
         {
-            return ":" + divider.Substring(1, divider.Length - 2) + ":";
+            return Colon + divider.Substring(1, divider.Length - 2) + Colon;
         }
     }
 }
