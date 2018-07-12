@@ -1,4 +1,4 @@
-# AVAILABILITY SLAS
+# [AVAILABILITY SLAS](https://docs.microsoft.com/en-us/azure/architecture/resiliency/index#slas)
 
 | SLA        | DOWNTIME / WEEK  | DOWNTIME / MONTH | DOWNTIME / YEAR  |
 | :--------: | :--------------: | :--------------: | :--------------: |
