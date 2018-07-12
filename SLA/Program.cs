@@ -51,7 +51,7 @@ namespace SLA
         static void Main(string[] args)
         {
             var sla = GetSla(ExpectedDowntimeDuration, ExpectedDowntimeInterval);
-            Console.WriteLine(sla);
+            Console.WriteLine($"Calculated SLA for: {ExpectedDowntimeDuration.ToString()}/{ExpectedDowntimeInterval} = {sla}");
 
             var steps = new List<decimal>();
             for (var step = StepStart; step < StepEnd; step++)
