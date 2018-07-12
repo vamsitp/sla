@@ -21,7 +21,7 @@ namespace SLA
         private static readonly decimal StepEnd = decimal.Parse(ConfigurationManager.AppSettings["StepEnd"]);
         private static readonly string[] DowntimeExpectations = ConfigurationManager.AppSettings["DowntimeExpectations"]?.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
-        private const int Padding = 16;
+        private const int Padding = 20;
         private const int Cent = 100;
 
         private const int DaysPerWeek = 7;
@@ -49,13 +49,13 @@ namespace SLA
         static void Main(string[] args)
         {
             var output = new StringBuilder();
+            var divider = Center("-".PadRight(Padding, '-'));
             if (DowntimeExpectations?.Length > 0)
             {
-                var divide = Center("-".PadRight(Padding, '-'));
                 output.AppendLine("## CALCULATED `SLAS` (BASED ON `EXPECTED DOWNTIMES`)");
                 output.AppendLine();
-                output.AppendLine($"| {"EXPECTED DOWNTIME".PadRight(20)} | {"UNIT".PadRight(Padding)} | {"SLA".PadRight(Padding)} |");
-                output.AppendLine($"| {Center("-".PadRight(20, '-'))} | {divide} | {divide} |");
+                output.AppendLine($"| {"EXPECTED DOWNTIME".PadRight(Padding)} | {"UNIT".PadRight(Padding)} | {"SLA".PadRight(Padding)} |");
+                output.AppendLine($"| {Center("-".PadRight(Padding, '-'))} | {divider} | {divider} |");
                 foreach (var item in DowntimeExpectations)
                 {
                     var downtimeExpectation = item.Split('/');
@@ -63,7 +63,7 @@ namespace SLA
                     var expectedDowntimeInterval = downtimeExpectation.LastOrDefault();
 
                     var sla = GetSla(expectedDowntimeDuration, expectedDowntimeInterval);
-                    output.AppendLine($"| {expectedDowntimeDuration.ToString().PadRight(20)} | {expectedDowntimeInterval.PadRight(Padding)} | {sla.PadRight(Padding)} |");
+                    output.AppendLine($"| {expectedDowntimeDuration.ToString().PadRight(Padding)} | {("[" + expectedDowntimeInterval + "]").PadRight(Padding)} | {sla.PadRight(Padding)} |");
                 }
 
                 output.AppendLine(Environment.NewLine);
@@ -78,17 +78,17 @@ namespace SLA
                 }
             }
 
-            var divider = Center("-".PadRight(Padding, '-'));
-            output.AppendLine("## CALCULATED `DOWNTIMES` (BASED ON [`AVAILABILITY SLAS`](https://docs.microsoft.com/en-us/azure/architecture/resiliency/index#slas))");
+
+            output.AppendLine("## CALCULATED `DOWNTIMES` (BASED ON [`EXPECTED SLAS`](https://docs.microsoft.com/en-us/azure/architecture/resiliency/index#slas))");
             output.AppendLine();
-            output.AppendLine($"| {"SLA".PadRight(10)} | {"DOWNTIME / WEEK".PadRight(Padding)} | {"DOWNTIME / MONTH".PadRight(Padding)} | {"DOWNTIME / YEAR".PadRight(Padding)} |");
-            output.AppendLine($"| {Center("-".PadRight(10, '-'))} | {divider} | {divider} | {divider} |");
+            output.AppendLine($"| {"EXPECTED SLA".PadRight(Padding)} | {"DOWNTIME / [W]EEK".PadRight(Padding)} | {"DOWNTIME / [M]ONTH".PadRight(Padding)} | {"DOWNTIME / [Y]EAR".PadRight(Padding)} |");
+            output.AppendLine($"| {Center("-".PadRight(Padding, '-'))} | {divider} | {divider} | {divider} |");
             foreach (var step in steps.OrderByDescending(x => x))
             {
                 var downtimePerYear = (SecondsPerYear * ((100.000M - step) / Cent) / SecondsPerDay);
                 var downtimePerMonth = (SecondsPerMonth * ((100.000M - step) / Cent) / SecondsPerDay);
                 var downtimePerWeek = (SecondsPerWeek * ((100.000M - step) / Cent) / SecondsPerDay);
-                output.AppendLine($"| {step}{" %".PadRight(4)} | {GetDowntime(downtimePerWeek).PadRight(Padding)} | {GetDowntime(downtimePerMonth).PadRight(Padding)} | {GetDowntime(downtimePerYear).PadRight(Padding)} |");
+                output.AppendLine($"| {(step + " %").PadRight(Padding)} | {GetDowntime(downtimePerWeek).PadRight(Padding)} | {GetDowntime(downtimePerMonth).PadRight(Padding)} | {GetDowntime(downtimePerYear).PadRight(Padding)} |");
             }
 
             var result = output.ToString();
