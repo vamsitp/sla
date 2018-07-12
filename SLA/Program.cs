@@ -19,9 +19,7 @@ namespace SLA
 
         private static readonly decimal StepStart = decimal.Parse(ConfigurationManager.AppSettings["StepStart"]);
         private static readonly decimal StepEnd = decimal.Parse(ConfigurationManager.AppSettings["StepEnd"]);
-        private static readonly string[] DowntimeExpectation = ConfigurationManager.AppSettings["DowntimeExpectation"]?.Split('/');
-        private static readonly TimeSpan ExpectedDowntimeDuration = XmlConvert.ToTimeSpan(DowntimeExpectation.FirstOrDefault()); // ?.Remove(DowntimeExpectation.FirstOrDefault().Length - 1));
-        private static readonly string ExpectedDowntimeInterval = DowntimeExpectation.LastOrDefault();
+        private static readonly string[] DowntimeExpectations = ConfigurationManager.AppSettings["DowntimeExpectations"]?.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
         private const int Padding = 16;
         private const int Cent = 100;
@@ -50,8 +48,26 @@ namespace SLA
 
         static void Main(string[] args)
         {
-            var sla = GetSla(ExpectedDowntimeDuration, ExpectedDowntimeInterval);
-            Console.WriteLine($"Calculated SLA for: {ExpectedDowntimeDuration.ToString()}/{ExpectedDowntimeInterval} = {sla}");
+            var output = new StringBuilder();
+            if (DowntimeExpectations?.Length > 0)
+            {
+                var divide = Center("-".PadRight(Padding, '-'));
+                output.AppendLine("## CALCULATED SLAS:");
+                output.AppendLine();
+                output.AppendLine($"| {"EXPECTED DOWNTIME".PadRight(20)} | {"UNIT".PadRight(Padding)} | {"SLA".PadRight(Padding)} |");
+                output.AppendLine($"| {Center("-".PadRight(20, '-'))} | {divide} | {divide} |");
+                foreach (var item in DowntimeExpectations)
+                {
+                    var downtimeExpectation = item.Split('/');
+                    var expectedDowntimeDuration = XmlConvert.ToTimeSpan(downtimeExpectation.FirstOrDefault()); // ?.Remove(DowntimeExpectation.FirstOrDefault().Length - 1));
+                    var expectedDowntimeInterval = downtimeExpectation.LastOrDefault();
+
+                    var sla = GetSla(expectedDowntimeDuration, expectedDowntimeInterval);
+                    output.AppendLine($"| {expectedDowntimeDuration.ToString().PadRight(20)} | {expectedDowntimeInterval.PadRight(Padding)} | {sla.PadRight(Padding)} |");
+                }
+
+                output.AppendLine(Environment.NewLine);
+            }
 
             var steps = new List<decimal>();
             for (var step = StepStart; step < StepEnd; step++)
@@ -63,8 +79,7 @@ namespace SLA
             }
 
             var divider = Center("-".PadRight(Padding, '-'));
-            var output = new StringBuilder();
-            output.AppendLine("# [AVAILABILITY SLAS](https://docs.microsoft.com/en-us/azure/architecture/resiliency/index#slas)");
+            output.AppendLine("## [AVAILABILITY SLAS](https://docs.microsoft.com/en-us/azure/architecture/resiliency/index#slas)");
             output.AppendLine();
             output.AppendLine($"| {"SLA".PadRight(10)} | {"DOWNTIME / WEEK".PadRight(Padding)} | {"DOWNTIME / MONTH".PadRight(Padding)} | {"DOWNTIME / YEAR".PadRight(Padding)} |");
             output.AppendLine($"| {Center("-".PadRight(10, '-'))} | {divider} | {divider} | {divider} |");

@@ -1,4 +1,12 @@
-# [AVAILABILITY SLAS](https://docs.microsoft.com/en-us/azure/architecture/resiliency/index#slas)
+## CALCULATED SLAS:
+
+| EXPECTED DOWNTIME    | UNIT             | SLA              |
+| :------------------: | :--------------: | :--------------: |
+| 07:12:00             | M                | 99.000 %         |
+| 05:00:00             | W                | 97.024 %         |
+
+
+## [AVAILABILITY SLAS](https://docs.microsoft.com/en-us/azure/architecture/resiliency/index#slas)
 
 | SLA        | DOWNTIME / WEEK  | DOWNTIME / MONTH | DOWNTIME / YEAR  |
 | :--------: | :--------------: | :--------------: | :--------------: |
