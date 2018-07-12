@@ -10,10 +10,10 @@ namespace SLA
     class Program
     {
         private const string Days = "days";
-        private const string Seconds = "seconds";
-        private const string Minutes = "minutes";
-        private const string Hours = "hours";
-        private const string Format = "0.00";
+        private const string Seconds = "secs";
+        private const string Minutes = "mins";
+        private const string Hours = "hrs";
+        private const string Format = "{0,5:##.00}";
 
         private static readonly decimal StepStart = decimal.Parse(ConfigurationManager.AppSettings["StepStart"]);
         private static readonly decimal StepEnd = decimal.Parse(ConfigurationManager.AppSettings["StepEnd"]);
@@ -29,14 +29,14 @@ namespace SLA
         private static readonly int SecondsPerMonth = SecondsPerDay * 30; // Days per Month
         private static readonly int SecondsPerYear = SecondsPerDay * 365; // Dats per Year
 
-        private static readonly decimal[] Increments = new decimal[] { 0.000M, 0.500M, 0.900M, 0.950M, 0.990M, 0.999M };
+        private static readonly IEnumerable<decimal> Intervals = ConfigurationManager.AppSettings["Intervals"].Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(decimal.Parse);
 
         static void Main(string[] args)
         {
             var steps = new List<decimal>();
             for (var step = StepStart; step < StepEnd; step++)
             {
-                foreach (var increment in Increments)
+                foreach (var increment in Intervals)
                 {
                     steps.Add(step + increment);
                 }
@@ -58,7 +58,8 @@ namespace SLA
 
             var result = output.ToString();
             Console.WriteLine(result);
-            File.WriteAllText("./Readme.md", result);
+            File.WriteAllText(ConfigurationManager.AppSettings["Output"], result);
+            Console.WriteLine("Done!");
             Console.ReadLine();
         }
 
@@ -87,7 +88,7 @@ namespace SLA
                 }
             }
 
-            return $"{downtime.ToString(Format)} {units}";
+            return $"{string.Format(Format, downtime)} {units}";
         }
 
         private static string Center(string divider)
