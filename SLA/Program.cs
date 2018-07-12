@@ -52,7 +52,7 @@ namespace SLA
             if (DowntimeExpectations?.Length > 0)
             {
                 var divide = Center("-".PadRight(Padding, '-'));
-                output.AppendLine("## CALCULATED SLAS:");
+                output.AppendLine("## CALCULATED `SLAS` (BASED ON `EXPECTED DOWNTIMES`)");
                 output.AppendLine();
                 output.AppendLine($"| {"EXPECTED DOWNTIME".PadRight(20)} | {"UNIT".PadRight(Padding)} | {"SLA".PadRight(Padding)} |");
                 output.AppendLine($"| {Center("-".PadRight(20, '-'))} | {divide} | {divide} |");
@@ -79,7 +79,7 @@ namespace SLA
             }
 
             var divider = Center("-".PadRight(Padding, '-'));
-            output.AppendLine("## [AVAILABILITY SLAS](https://docs.microsoft.com/en-us/azure/architecture/resiliency/index#slas)");
+            output.AppendLine("## CALCULATED `DOWNTIMES` (BASED ON [`AVAILABILITY SLAS`](https://docs.microsoft.com/en-us/azure/architecture/resiliency/index#slas))");
             output.AppendLine();
             output.AppendLine($"| {"SLA".PadRight(10)} | {"DOWNTIME / WEEK".PadRight(Padding)} | {"DOWNTIME / MONTH".PadRight(Padding)} | {"DOWNTIME / YEAR".PadRight(Padding)} |");
             output.AppendLine($"| {Center("-".PadRight(10, '-'))} | {divider} | {divider} | {divider} |");
