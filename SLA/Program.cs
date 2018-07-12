@@ -6,6 +6,7 @@ namespace SLA
     using System.IO;
     using System.Linq;
     using System.Text;
+    using System.Xml;
 
     class Program
     {
@@ -18,6 +19,9 @@ namespace SLA
 
         private static readonly decimal StepStart = decimal.Parse(ConfigurationManager.AppSettings["StepStart"]);
         private static readonly decimal StepEnd = decimal.Parse(ConfigurationManager.AppSettings["StepEnd"]);
+        private static readonly string[] DowntimeExpectation = ConfigurationManager.AppSettings["DowntimeExpectation"]?.Split('/');
+        private static readonly TimeSpan ExpectedDowntimeDuration = XmlConvert.ToTimeSpan(DowntimeExpectation.FirstOrDefault()); // ?.Remove(DowntimeExpectation.FirstOrDefault().Length - 1));
+        private static readonly string ExpectedDowntimeInterval = DowntimeExpectation.LastOrDefault();
 
         private const int Padding = 16;
         private const int Cent = 100;
@@ -36,9 +40,19 @@ namespace SLA
         private static readonly int SecondsPerYear = SecondsPerDay * DaysPerYear;
 
         private static readonly IEnumerable<decimal> Intervals = ConfigurationManager.AppSettings["Intervals"].Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(decimal.Parse);
+        private static readonly Dictionary<string, double> SecondsPerUnit = new Dictionary<string, double>(StringComparer.OrdinalIgnoreCase)
+        {
+            { "D", SecondsPerDay },
+            { "W", SecondsPerWeek },
+            { "M", SecondsPerMonth },
+            { "Y", SecondsPerYear }
+        };
 
         static void Main(string[] args)
         {
+            var sla = GetSla(ExpectedDowntimeDuration, ExpectedDowntimeInterval);
+            Console.WriteLine(sla);
+
             var steps = new List<decimal>();
             for (var step = StepStart; step < StepEnd; step++)
             {
@@ -95,6 +109,13 @@ namespace SLA
             }
 
             return $"{string.Format(Format, downtime)} {units}";
+        }
+
+        private static string GetSla(TimeSpan duration, string unit)
+        {
+            var durationInSec = duration.TotalSeconds;
+            var sla = (durationInSec / SecondsPerUnit[unit]) * 100;
+            return $"{(100 - sla).ToString("00.000")} %";
         }
 
         private static string Center(string divider)
